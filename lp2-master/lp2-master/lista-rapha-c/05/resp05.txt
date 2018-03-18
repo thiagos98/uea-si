@@ -1,0 +1,17 @@
+#include<stdio.h>
+int main(){
+ *printf("Ola mundo");
+printf("Ola lua");
+scanf("%d",&lua);*/
+                                     
+           
+}#include<stdio.h>
+int main(){
+#include<stdio.h>
+int main(){
+ *printf("Ola mundo");
+printf("Ola lua");
+scanf("%d",&lua);*/
+                                     
+           
+}
