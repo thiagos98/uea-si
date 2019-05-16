@@ -11,7 +11,7 @@
 </head>
 <body class="text-center" id="body">
 	<div id="border-external">
-		<form class="form-sign" action="dados-pessoais.html" method="post">
+		<form class="form-sign" action="dados-pessoais.php" method="post">
 			<h3>FORMULÁRIO PESSOAL</h3>
 			<input type="text" name="nome" id="nome" placeholder="NOME" class="form-control">
 			<input type="text" name="data" id="data" placeholder="DATA DE NASCIMENTO" class="form-control">
@@ -23,9 +23,9 @@
 					<input type="text" name="universidade" id="universidade" placeholder="UNIVERSIDADE" class="form-control">
 				</div>
 			</div>
-			<textarea id="professional" class="form-control" placeholder="RESUMO PROFESSIONAL"></textarea>
-			<textarea id="academico" class="form-control" placeholder="RESUMO ACADÊMICO"></textarea>
-			<button type="submit" class="btn btn-primary btn-lg">Enviar</button>
+			<textarea id="profissional" name="profissional" class="form-control" placeholder="RESUMO PROFESSIONAL"></textarea>
+			<textarea id="academico" name="academico" class="form-control" placeholder="RESUMO ACADÊMICO"></textarea>
+			<input type="submit" class="btn btn-primary btn-lg" placeholder="Enviar">
 		</form>
 	</div>
 </body>

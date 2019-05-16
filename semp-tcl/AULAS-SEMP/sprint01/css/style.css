@@ -26,6 +26,12 @@ textarea.form-control {
 button.btn {
 	margin: 15px;
 }
-h3 {
-	margin: 15px;
+h1 {
+	word-wrap: break-word;
+}
+img.rounded-circle {
+	height: 200px;
+}
+p.texto {
+	word-wrap: break-word;
 }
