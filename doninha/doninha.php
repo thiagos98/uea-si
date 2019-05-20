@@ -41,28 +41,33 @@
         }
         return $newRandomStr;
     }
-
+/*
+    $randStr = randomStr();
+    echo modRandomStr($randStr);
+*/
     $loopNumber = 0;
-    $strFound = FALSE;
+    $strFound = false;
     $randStr = randomStr();
     $resultList = [];
     while(!$strFound){
         for ($i=0; $i < CONST_SIZE; $i++) {
             // code...
             $strList[$i] = '';
-            $indexList[$i] = NULL;
+            $indexList[$i] = 0;
+            //echo $i . "<br>";
         }
         for ($i=0; $i < CONST_SIZE; $i++) {
             $strList[$i] = modRandomStr($randStr);
             $indexList[$i] = compareStr($strList[$i]);
         }
         $maxIndex = max($indexList);
+        //echo $maxIndex . "<br>";
         if($maxIndex == strlen($target)){
-            $strFound = TRUE;
+            $strFound = true;
         }
         $index = $indexList[$maxIndex];
         $randStr = $strList[$index];
-        echo($loopNumber . ": " . $randStr . " -- Score: ". $maxIndex . "<br>");
+        //echo($loopNumber . ": " . $randStr . " -- Score: ". $maxIndex . "<br>");
         $loopNumber++;
     }
  ?>
