@@ -76,8 +76,39 @@
         //$index = $indexList[$maxIndex];
         $index = getIndex($indexList, $maxIndex);
         $randStr = $strList[$index];
-        echo($loopNumber . ": " . $randStr . " -- Score: ". $maxIndex . "<br>");
+        //echo($loopNumber . ": " . $randStr . " -- Score: ". $maxIndex . "<br>");
+        for ($i=0; $i < $loopNumber; $i++) { 
+            $resultList[$i] = $loopNumber . ": " . $randStr . " -- Score: ". $maxIndex . "<br>";
+        }
         $loopNumber++;
     }
 
  ?>
+<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+</head>
+<body>
+    <div class="container">
+        <div class="row">
+            <table>
+                <tr>
+                    <th>Score</th>
+                    <th>String</th>
+                    <th>Generation</th>
+                </tr>
+                <tr>
+                    <?php
+                        
+                        for ($i=0; $i < count($resultList); $i++) { 
+                             # code...
+                            echo "<td>" . $resultList[$i] . "</td>";
+                         }  
+                    ?>
+                </tr>
+            </table>
+        </div>
+    </div>
+</body>
+</html>
