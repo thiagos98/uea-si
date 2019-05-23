@@ -1,3 +1,96 @@
+<?php
+const CONST_SIZE = 100;
+const CONST_PROB = 5;
+
+$target = $_POST["target"];
+$alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ ";
+
+function randomChr() {
+    $alphabet = $GLOBALS['alphabet'];
+    return $alphabet[rand(0,26)];
+}
+
+function randomStr() {
+    $target = $GLOBALS['target'];
+    $randomStr = '';
+    for ($i=0; $i < strlen($target); $i++) {
+        $randomStr = $randomStr . randomChr();
+    }
+    return $randomStr;
+}
+
+function compareStr($randomStr){
+    $target = $GLOBALS['target'];
+    $randomStrIndex = 0;
+    for ($i=0; $i < strlen($target); $i++) {
+        if($target[$i] == $randomStr[$i]){
+            $randomStrIndex++;
+        }
+    }
+    return $randomStrIndex;
+}
+
+function modRandomStr($randomStr){
+    $target = $GLOBALS['target'];
+    $newRandomStr = $randomStr;
+    for ($i=0; $i < strlen($target); $i++) {
+        $randomInt = rand(1,100);
+        if($randomInt <= CONST_PROB){
+            $newRandomStr = substr($newRandomStr, 0, $i) . randomChr() . substr($newRandomStr, ($i + 1));
+        }
+    }
+    return $newRandomStr;
+}
+
+function getIndex($indexList, $maxIndex){
+    $index = 0;
+    for ($i=0; $i < count($indexList); $i++) {
+        // code...
+        if ($indexList[$i] == $maxIndex) {
+            $index = $i;
+        }
+    }
+    return $index;
+}
+
+$loopNumber = 0;
+$strFound = false;
+$randStr = randomStr();
+$resultList = [];
+$loopNumberList=[];
+$randomStrList=[''];
+$maxIndexList=[];
+while(!$strFound){
+    $strList = [];
+    $indexList = [];
+    for ($i=0; $i < CONST_SIZE; $i++) {
+        // code...
+        $strList[$i] = '';
+        $indexList[$i] = NULL;
+    }
+    for ($i=0; $i < CONST_SIZE; $i++) {
+        $strList[$i] = modRandomStr($randStr);
+        $indexList[$i] = compareStr($strList[$i]);
+    }
+    $maxIndex = max($indexList);
+    if($maxIndex == strlen($target)){
+        $strFound = true;
+    }
+    //$index = $indexList[$maxIndex];
+    $index = getIndex($indexList, $maxIndex);
+    $randStr = $strList[$index];
+    //echo($loopNumber . ": " . $randStr . " -- Score: ". $maxIndex . "<br>");
+
+
+    $loopNumberList[$loopNumber] = $loopNumber;
+    $randomStrList[$loopNumber] = $randStr;
+    $maxIndexList[$loopNumber] = $maxIndex;
+    //$resultList[$loopNumber] = $loopNumber . ": " . $randStr . " -- Score: ". $maxIndex . "<br>";
+
+    $loopNumber++;
+}
+ ?>
+
  <!DOCTYPE html>
  <html lang="pt">
 
@@ -26,98 +119,7 @@
    <!-- Custom styles for this template -->
    <link href="css/freelancer.min.css" rel="stylesheet">
 
-   <?php
-   const CONST_SIZE = 100;
-   const CONST_PROB = 5;
 
-   $target = $_POST["target"];
-   $alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ ";
-
-   function randomChr() {
-       $alphabet = $GLOBALS['alphabet'];
-       return $alphabet[rand(0,26)];
-   }
-
-   function randomStr() {
-       $target = $GLOBALS['target'];
-       $randomStr = '';
-       for ($i=0; $i < strlen($target); $i++) {
-           $randomStr = $randomStr . randomChr();
-       }
-       return $randomStr;
-   }
-
-   function compareStr($randomStr){
-       $target = $GLOBALS['target'];
-       $randomStrIndex = 0;
-       for ($i=0; $i < strlen($target); $i++) {
-           if($target[$i] == $randomStr[$i]){
-               $randomStrIndex++;
-           }
-       }
-       return $randomStrIndex;
-   }
-
-   function modRandomStr($randomStr){
-       $target = $GLOBALS['target'];
-       $newRandomStr = $randomStr;
-       for ($i=0; $i < strlen($target); $i++) {
-           $randomInt = rand(1,100);
-           if($randomInt <= CONST_PROB){
-               $newRandomStr = substr($newRandomStr, 0, $i) . randomChr() . substr($newRandomStr, ($i + 1));
-           }
-       }
-       return $newRandomStr;
-   }
-
-   function getIndex($indexList, $maxIndex){
-       $index = 0;
-       for ($i=0; $i < count($indexList); $i++) {
-           // code...
-           if ($indexList[$i] == $maxIndex) {
-               $index = $i;
-           }
-       }
-       return $index;
-   }
-
-   $loopNumber = 0;
-   $strFound = false;
-   $randStr = randomStr();
-   $resultList = [];
-   $loopNumberList=[];
-   $randomStrList=[''];
-   $maxIndexList=[];
-   while(!$strFound){
-       $strList = [];
-       $indexList = [];
-       for ($i=0; $i < CONST_SIZE; $i++) {
-           // code...
-           $strList[$i] = '';
-           $indexList[$i] = NULL;
-       }
-       for ($i=0; $i < CONST_SIZE; $i++) {
-           $strList[$i] = modRandomStr($randStr);
-           $indexList[$i] = compareStr($strList[$i]);
-       }
-       $maxIndex = max($indexList);
-       if($maxIndex == strlen($target)){
-           $strFound = true;
-       }
-       //$index = $indexList[$maxIndex];
-       $index = getIndex($indexList, $maxIndex);
-       $randStr = $strList[$index];
-       //echo($loopNumber . ": " . $randStr . " -- Score: ". $maxIndex . "<br>");
-
-
-       $loopNumberList[$loopNumber] = $loopNumber;
-       $randomStrList[$loopNumber] = $randStr;
-       $maxIndexList[$loopNumber] = $maxIndex;
-       //$resultList[$loopNumber] = $loopNumber . ": " . $randStr . " -- Score: ". $maxIndex . "<br>";
-
-       $loopNumber++;
-   }
-    ?>
  </head>
 
  <body id="page-top">
@@ -125,7 +127,7 @@
    <!-- Navigation -->
    <nav class="navbar navbar-expand-lg bg-secondary fixed-top text-uppercase" id="mainNav">
      <div class="container">
-       <a class="navbar-brand js-scroll-trigger" href="#page-top">Weasel program</a>
+       <a class="navbar-brand js-scroll-trigger" href="index.php">Weasel program</a>
        <button class="navbar-toggler navbar-toggler-right text-uppercase bg-primary text-white rounded" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
          Menu
          <i class="fas fa-bars"></i>
@@ -159,27 +161,27 @@
        <div align="center" class="container">
            <div class="row">
                <div class="col-sm">
-                   <h1 class="h5 font-weight-light mb-0">Iterações</h1>
+                   <h1 class="h5 font-weight-light mb-0">Geração</h1>
                    <?php
                    for ($i=0; $i < sizeof($loopNumberList); $i++) {
                        // code...
-                       echo "<p class='lead mb-0'>".$loopNumberList[$i]. "</p>";
+                       echo "<p class='mb-0'>".$loopNumberList[$i]. "</p>";
                    } ?>
                </div>
-               <div class="col-sm">
+               <div class="col-md">
                    <h1 class="h5 font-weight-light mb-0">Texto da Geração</h1>
                    <?php
                    for ($i=0; $i < sizeof($randomStrList); $i++) {
                        // code...
-                       echo "<p class='lead mb-0'>".$randomStrList[$i]. "</p>";
+                       echo "<p class='mb-0'>".$randomStrList[$i]. "</p>";
                    } ?>
                </div>
                <div class="col-sm">
-                   <h1 class="h5 font-weight-light mb-0">Geração</h1>
+                   <h1 class="h5 font-weight-light mb-0">Score</h1>
                    <?php
                    for ($i=0; $i < sizeof($maxIndexList); $i++) {
                        // code...
-                       echo "<p class='lead mb-0'>".$maxIndexList[$i]. "</p>";
+                       echo "<p class='mb-0'>".$maxIndexList[$i]. "</p>";
                    } ?>
                </div>
            </div>
