@@ -56,7 +56,6 @@ function getIndex($indexList, $maxIndex){
 $loopNumber = 0;
 $strFound = false;
 $randStr = randomStr();
-$resultList = [];
 $loopNumberList=[];
 $randomStrList=[''];
 $maxIndexList=[];
@@ -76,17 +75,12 @@ while(!$strFound){
     if($maxIndex == strlen($target)){
         $strFound = true;
     }
-    //$index = $indexList[$maxIndex];
     $index = getIndex($indexList, $maxIndex);
     $randStr = $strList[$index];
-    //echo($loopNumber . ": " . $randStr . " -- Score: ". $maxIndex . "<br>");
-
 
     $loopNumberList[$loopNumber] = $loopNumber;
     $randomStrList[$loopNumber] = $randStr;
     $maxIndexList[$loopNumber] = $maxIndex;
-    //$resultList[$loopNumber] = $loopNumber . ": " . $randStr . " -- Score: ". $maxIndex . "<br>";
-
     $loopNumber++;
 }
  ?>
@@ -168,7 +162,7 @@ while(!$strFound){
                        echo "<p class='mb-0'>".$loopNumberList[$i]. "</p>";
                    } ?>
                </div>
-               <div class="col-md">
+               <div class="col-XL-10">
                    <h1 class="h5 font-weight-light mb-0">Texto da Geração</h1>
                    <?php
                    for ($i=0; $i < sizeof($randomStrList); $i++) {
@@ -225,6 +219,9 @@ while(!$strFound){
            <p class="lead mb-0">UEA - UNIVERSIDADE DO ESTADO DO AMAZONAS
              <br>MANAUS, AMAZONAS</p>
          </div>
+         <div class="col-md-4 mb-5 mb-lg-0">
+
+        </div>
          <div class="col-md-4">
            <h4 class="text-uppercase mb-4">Equipe</h4>
            <p class="lead mb-0">Antonio Rodrigues de Souza Neto </br> Thiago Santos Borges </br> Nadine Cunha Brito </p>
