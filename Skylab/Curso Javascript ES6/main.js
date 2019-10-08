@@ -133,7 +133,78 @@ function mostraNome({nome},{modelo}){
 
 mostraNome(usuario,carro);
 
-*/
+
 
 //Operadores Rest/Spread
+
+//REST
+//Pegar o resto das propriedades E OBJETOS
+
+const usuario = {
+    nome: 'thiago',
+    idade: 21,
+    empresa: 'rocketseat'
+};
+
+const { nome, ...resto } = usuario;
+
+
+const arr = [1,2,3,4];
+const [ a, b, ...c] = arr;
+
+
+function soma(...params){
+    return params.reduce((total, next) => total + next);
+}
+
+console.log(soma(1,2,3,4));
+
+//SPREAD
+//REPASSAR AS INFORMACOES DE UM OBJETO PARA OUTRA ESTRUTURA DE DADOS
+
+const arr1 = [1,2,3];
+const arr2 = [4,5,6];
+
+const arr3 = [ ...arr1, ...arr2];
+
+console.log(arr3);
+
+
+const usuario1 = {
+    nome: 'thiago',
+    idade: 23,
+    empresa: 'rocketseat'
+};
+
+const usuario2 = { ...usuario1, nome:'diego'};
+console.log(usuario1);
+console.log(usuario2);
+
+
+//Template Literals
+
+const nome = 'thiago';
+const idade = 21;
+
+//console.log('meu nome é ' + nome + ' e tenho ' + idade + ' anos');
+
+console.log(`meu nome e ${nome} e tenho ${idade} anos.`);
+
+
+//Object Short Syntax
+
+const nome = 'thiago';
+const idade = 21;
+
+const usuario = {
+    nome,
+    idade,
+    empresa: 'rocketseat',
+};
+
+console.log(usuario);
+
+*/
+
+//Configurando Webpack
 
