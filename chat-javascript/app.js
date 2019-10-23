@@ -1,20 +1,9 @@
-const DADOS_CRIPTOGRAFAR = {
-    algoritmo : "aes512",
-    segredo : "chaves",
-    tipo : "hex"
-};
-const crypto = require("crypto");
 var app = require('express')();
 var http = require('http').Server(app);
 var io = require('socket.io')(http);
+var aesjs = require('aes-js');
 
 var clients = {}; 
-
-function criptografar(senha) {
-	const cipher = crypto.createCipher(DADOS_CRIPTOGRAFAR.algoritmo, DADOS_CRIPTOGRAFAR.segredo);
-	cipher.update(senha);
-	return cipher.final(DADOS_CRIPTOGRAFAR.tipo);
-};
 
 app.get('/', function(req, res){
   res.send('server is running');
@@ -29,7 +18,7 @@ io.on("connection", function (client) {
     });
 
     client.on("send", function(msg){
-    	console.log("Message: " + criptografar(msg));
+    	console.log("Message: " + msg);
         client.broadcast.emit("chat", clients[client.id], msg);
     });
 
@@ -44,3 +33,19 @@ io.on("connection", function (client) {
 http.listen(3000, function(){
   console.log('listening on port 3000');
 });
+
+function decrypted(encryptedHex){
+	// When ready to decrypt the hex string, convert it back to bytes
+	var encryptedBytes = aesjs.utils.hex.toBytes(encryptedHex);
+
+	// The counter mode of operation maintains internal state, so to
+	// decrypt a new instance must be instantiated.
+	var aesCtr = new aesjs.ModeOfOperation.ctr(key, new aesjs.Counter(5));
+	var decryptedBytes = aesCtr.decrypt(encryptedBytes);
+
+	// Convert our bytes back into text
+	var decryptedText = aesjs.utils.utf8.fromBytes(decryptedBytes);
+	return decryptedText;
+	//console.log(decryptedText);
+	// "Text may be any length you wish, no padding is required."	
+}
